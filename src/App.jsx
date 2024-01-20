@@ -1,48 +1,18 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setAlbums,
-  setPlaylists,
-  setCharts,
-  setTrending,
-} from "../redux/slices/HomePageSlice";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import MainSection from "./components/MainSection";
-import Player from "./components/Player";
+import React from 'react'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import Home from './pages/Home'
+import AlbumDetails from './pages/AlbumDetails'
 
-export default function App() {
-  const dispatch = useDispatch();
-
-  // const [albums, setAlbums] = useState([]);
-  // const [playlists, setPlaylists] = useState([]);
-  // const [artists, setArtists] = useState([]);
-  // const [trending, setTrending] = useState([]);
-
-  const getHomePageData = async () => {
-    const res = await axios.get("https://saavn.me/modules?language=hindi");
-    const { data } = await res.data;
-    // console.log(data);
-    // setAlbums(data.albums);
-    // setPlaylists(data.playlists);
-    // setArtists(data.artists);
-    // setTrending(data.trending);
-    dispatch(setTrending(data.trending));
-    dispatch(setAlbums(data.albums));
-    dispatch(setPlaylists(data.playlists));
-    dispatch(setCharts(data.charts));
-  };
-
-  useEffect(() => {
-    getHomePageData();
-  }, []);
-
+const App = () => {
   return (
-    <>
-      <Navbar />
-      <MainSection />
-      <Player />
-    </>
-  );
+    <BrowserRouter>
+    
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/albums/:id" element={<AlbumDetails/>} />
+    </Routes>
+    </BrowserRouter>
+  )
 }
+
+export default App
