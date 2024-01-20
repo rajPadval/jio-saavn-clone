@@ -22,9 +22,12 @@ body {
 }
 
 .scroll-hide::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+  width: 0;
+  /* Remove scrollbar space */
+  background: transparent;
+  /* Optional: just make scrollbar invisible */
 }
+
 /* Optional: show position indicator in red */
 .scroll-hide::-webkit-scrollbar-thumb {
   background: transparent;
@@ -41,7 +44,8 @@ body {
 input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
-  margin: 13.8px 0;
+  /* margin: 13.8px 0; */
+  margin-bottom: 13.8px;
   background-color: #e8e8e8ff;
 }
 
