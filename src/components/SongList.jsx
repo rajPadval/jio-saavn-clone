@@ -9,16 +9,14 @@ const SongList = ({ name, primaryArtists, duration }) => {
     }
 
     return (
-        <div className='flex justify-between items-center gap-2 p-1 px-3 hover:bg-white hover:shadow-md'>
-            <div className='flex gap-2 justify-center items-center'>
-                <GoPlay className='text-3xl text-gray-500 hover:text-gray-700 transition-all ease-in-out duration-300 cursor-pointer' />
-                <span className='font-bold text-sm'>{name}</span>
-            </div>
-            <div className=''>
-                <span className='font-thin text-sm text-gray-500'>{primaryArtists}</span>
+        <div className='flex justify-between items-center lg:w-[55vw] mb-2 lg:mb-1 p-1 px-3 hover:bg-white hover:shadow-md'>
+            <GoPlay className='text-3xl text-gray-500 hover:text-gray-700 transition-all ease-in-out duration-300 cursor-pointer' />
+            <div className='flex flex-col lg:flex-row gap-2 justify-between items-start w-[80%]'>
+                <span className='font-bold text-xs'>{name}</span>
+                <span className='font-thin text-xs text-gray-500'>{primaryArtists}</span>
             </div>
             <div>
-                <span className='font-thin text-sm text-gray-500'>{convertTime(duration)}</span>
+                <span className='font-thin text-xs text-gray-500 hidden lg:block'>{convertTime(duration)}</span>
             </div>
         </div>
     )
