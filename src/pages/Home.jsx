@@ -12,6 +12,7 @@ import Sidebar from "../components/Sidebar";
 import MainSection from "../components/MainSection";
 import Player from "../components/Player";
 
+
 export default function Home() {
     const dispatch = useDispatch();
 
