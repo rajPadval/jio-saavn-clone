@@ -1,12 +1,6 @@
 import { useContext } from "react";
 import { GoPlay } from "react-icons/go";
 import { AiOutlinePauseCircle } from "react-icons/ai";
-// import { useSelector, useDispatch } from "react-redux";
-// import {
-//   setAudio,
-//   setCurrentSong,
-//   setIsPlaying,
-// } from "../../redux/slices/audioSlice";
 
 import MusicContext from "../context/MusicContext";
 import PropTypes from "prop-types";
@@ -28,7 +22,7 @@ const SongList = ({
   const { isPlaying, playMusic, currentSong } = useContext(MusicContext);
 
   return (
-    <div className="flex justify-between items-center lg:w-[55vw] mb-2 lg:mb-1 p-1 px-3 hover:bg-white hover:shadow-md">
+    <div className="flex justify-between items-center w-[80vw] lg:w-[50vw] mb-2 lg:mb-1 p-1 px-3 hover:bg-white hover:shadow-md">
       <GoPlay
         onClick={() => playMusic(downloadUrl, name, duration, image, id)}
         className="text-3xl text-gray-500 hover:text-gray-700 transition-all ease-in-out duration-300 cursor-pointer"

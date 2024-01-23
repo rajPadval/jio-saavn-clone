@@ -7,6 +7,7 @@ import MusicContext from "./context/MusicContext";
 const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
+  const [songs, setSongs] = useState([]);
 
   const playMusic = async (music, name, duration, image, id) => {
     if (currentSong && currentSong.id === id) {
@@ -31,14 +32,44 @@ const App = () => {
         audio: newAudio,
       });
       setIsPlaying(true);
-      console.log(currentSong)
+      console.log(currentSong);
       await newAudio.play();
     }
   };
 
   useEffect(() => {
-    console.log(currentSong);
+    console.log(currentSong, songs);
   }, [currentSong]);
+
+  const nextSong = () => {
+    console.log("Next Song Clicked");
+
+    if (currentSong) {
+      const index = songs.findIndex((song) => song.id === currentSong.id);
+      if (index === songs.length - 1) {
+        const { downloadUrl, name, duration, image, id } = songs[0];
+        playMusic(downloadUrl, name, duration, image, id);
+      } else {
+        const { downloadUrl, name, duration, image, id } = songs[index + 1];
+        playMusic(downloadUrl, name, duration, image, id);
+      }
+    }
+  };
+
+  const prevSong = () => {
+    console.log("Previous Song Clicked");
+    if (currentSong) {
+      const index = songs.findIndex((song) => song.id === currentSong.id);
+      if (index === 0) {
+        const { downloadUrl, name, duration, image, id } =
+          songs[songs.length - 1];
+        playMusic(downloadUrl, name, duration, image, id);
+      } else {
+        const { downloadUrl, name, duration, image, id } = songs[index - 1];
+        playMusic(downloadUrl, name, duration, image, id);
+      }
+    }
+  };
 
   return (
     <MusicContext.Provider
@@ -48,6 +79,10 @@ const App = () => {
         currentSong,
         setCurrentSong,
         playMusic,
+        songs,
+        setSongs,
+        nextSong,
+        prevSong,
       }}
     >
       <BrowserRouter>

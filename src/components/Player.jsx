@@ -7,7 +7,8 @@ import { HiSpeakerWave } from "react-icons/hi2";
 import MusicContext from "../context/MusicContext";
 
 const Player = () => {
-  const { currentSong, playMusic, isPlaying } = useContext(MusicContext);
+  const { currentSong, playMusic, isPlaying, prevSong, nextSong } =
+    useContext(MusicContext);
 
   const inputRef = useRef();
 
@@ -70,7 +71,10 @@ const Player = () => {
         </div>
         <div className="flex text-3xl gap-6">
           <BiRepeat className="text-gray-400 " />
-          <IoMdSkipBackward className="text-gray-700 hover:text-gray-500 cursor-pointer" />
+          <IoMdSkipBackward
+            onClick={prevSong}
+            className="text-gray-700 hover:text-gray-500 cursor-pointer"
+          />
           {isPlaying ? (
             <FaPause
               className="text-gray-700 hover:text-gray-500 cursor-pointer"
@@ -99,7 +103,10 @@ const Player = () => {
             />
           )}
 
-          <IoMdSkipForward className="text-gray-700 hover:text-gray-500 cursor-pointer" />
+          <IoMdSkipForward
+            onClick={nextSong}
+            className="text-gray-700 hover:text-gray-500 cursor-pointer"
+          />
           <PiShuffleBold className="text-gray-400  cursor-pointer" />
         </div>
         <div>
