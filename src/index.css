@@ -44,16 +44,15 @@ body {
 input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
-  /* margin: 13.8px 0; */
   margin-bottom: 13.8px;
   background-color: #e8e8e8ff;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
   appearance: none;
   width: 10px;
   height: 10px;
   border-radius: 30px;
   background: #46c7b6ff;
 }
+

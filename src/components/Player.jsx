@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiRepeat } from "react-icons/bi";
@@ -9,34 +9,33 @@ import MusicContext from "../context/MusicContext";
 const Player = () => {
   const { currentSong, playMusic, isPlaying } = useContext(MusicContext);
 
-  const [timing, setTiming] = useState(0);
-  const audioRef = useRef(new Audio(currentSong?.audio));
+  const inputRef = useRef();
 
   useEffect(() => {
-    const audioElement = audioRef.current;
+    if (currentSong) {
+      const audioElement = currentSong.audio;
 
-    const handleTimeUpdate = () => {
-      const duration = Number(currentSong.duration);
-      const currentTime = audioElement.currentTime;
-      console.log("Duration is ", duration, "Current Time is ", currentTime);
-      const newTiming = (currentTime / duration) * 100;
-      console.log("New Timing is ", newTiming);
-      setTiming(newTiming);
-    };
+      const handleTimeUpdate = () => {
+        const duration = Number(currentSong.duration);
+        const currentTime = audioElement.currentTime;
+        const newTiming = (currentTime / duration) * 100;
+        inputRef.current.value = newTiming;
+      };
 
-    audioElement.addEventListener("timeupdate", handleTimeUpdate);
-    return () => {
-      audioElement.removeEventListener("timeupdate", handleTimeUpdate);
-    };
-  }, [audioRef, currentSong]);
+      audioElement.addEventListener("timeupdate", handleTimeUpdate);
+
+      return () => {
+        audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+      };
+    }
+  }, [currentSong]);
 
   const handleProgressChange = (event) => {
-    const newTime = (event.target.value / 100) * Number(currentSong.duration);
+    const newPercentage = parseFloat(event.target.value);
+    const newTime = (newPercentage / 100) * Number(currentSong.duration);
 
-    // Check if newTime is a valid number before setting currentTime
     if (!isNaN(newTime) && isFinite(newTime) && newTime >= 0) {
-      audioRef.current.currentTime = newTime;
-      // Optionally, you can update the timing state here if needed
+      currentSong.audio.currentTime = newTime;
     }
   };
 
@@ -44,13 +43,22 @@ const Player = () => {
     <div className="fixed bottom-0 right-0 left-0 bg-[#f5f5f5ff] flex flex-col ">
       <input
         type="range"
+        ref={inputRef}
         min="0"
         max="100"
         step="0.1"
-        value={timing}
+        value={0}
         onChange={handleProgressChange}
-        className="w-full h-[5px] text-green-400 range"
+        className="w-full h-[5px] text-green-400 range "
       />
+      {/* <input
+        type="range"
+        ref={inputRef}
+        value={0}
+        max={100}
+        onChange={handleProgressChange}
+        className="w-full h-[5px] text-green-400 range transition-all duration-1000 ease-linear"
+      /> */}
       <div className="flex justify-between items-center mb-3 px-3">
         <div>
           <img
