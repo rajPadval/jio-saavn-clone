@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiRepeat } from "react-icons/bi";
@@ -10,6 +10,8 @@ import VolumeController from "./VolumeController";
 const Player = () => {
   const { currentSong, playMusic, isPlaying, prevSong, nextSong } =
     useContext(MusicContext);
+
+  const [isVolumeVisible, setIsVolumeVisible] = useState(false);
 
   const inputRef = useRef();
 
@@ -124,9 +126,13 @@ const Player = () => {
           />
           <PiShuffleBold className="text-gray-400  cursor-pointer" />
         </div>
-        <div className="flex  lg:w-[30vw] justify-end">
+        <div
+          className="flex  lg:w-[30vw] justify-end "
+          onMouseEnter={() => setIsVolumeVisible(true)}
+          onMouseLeave={() => setIsVolumeVisible(false)}
+        >
           <HiSpeakerWave className="text-gray-700 hover:text-gray-500 text-2xl lg:text-3xl cursor-pointer" />
-          <VolumeController />
+          <VolumeController isVolumeVisible={isVolumeVisible} />
         </div>
       </div>
     </div>
