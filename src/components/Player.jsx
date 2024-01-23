@@ -5,6 +5,7 @@ import { BiRepeat } from "react-icons/bi";
 import { PiShuffleBold } from "react-icons/pi";
 import { HiSpeakerWave } from "react-icons/hi2";
 import MusicContext from "../context/MusicContext";
+import VolumeController from "./VolumeController";
 
 const Player = () => {
   const { currentSong, playMusic, isPlaying, prevSong, nextSong } =
@@ -81,7 +82,9 @@ const Player = () => {
             </p>
           </div>
         </div>
-        <div className={`flex text-2xl lg:text-3xl gap-6 lg:w-[40vw] justify-center`}>
+        <div
+          className={`flex text-2xl lg:text-3xl gap-6 lg:w-[40vw] justify-center`}
+        >
           <BiRepeat className="text-gray-400 " />
           <IoMdSkipBackward
             onClick={prevSong}
@@ -123,6 +126,7 @@ const Player = () => {
         </div>
         <div className="flex  lg:w-[30vw] justify-end">
           <HiSpeakerWave className="text-gray-700 hover:text-gray-500 text-2xl lg:text-3xl cursor-pointer" />
+          <VolumeController />
         </div>
       </div>
     </div>
