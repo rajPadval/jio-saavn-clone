@@ -1,13 +1,29 @@
+import axios from "axios";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link } from "react-router-dom";
+import MusicContext from "../context/MusicContext";
+import { useContext } from "react";
 
 const Navbar = () => {
+  const { setSearchedSongs } = useContext(MusicContext);
+
+  const searchSongs = async (e) => {
+    console.log(e.target.value);
+    const res = await axios.get(
+      `https://saavn.me/search/songs?query=${e.target.value}&page=1&limit=2`
+    );
+    const { data } = await res.data;
+    setSearchedSongs(data.results);
+  };
+
   return (
     <nav className="flex justify-between items-center py-3 border-none lg:border px-2 fixed top-0 left-0 right-0 bg-[#f5f5f5ff]">
       <div className="flex flex-col lg:flex-row justify-between items-center mx-auto lg:mx-0">
         <div className="flex justify-between items-center gap-1 mr-4 ">
           <img src="/savan-logo.png" alt="logo" width={37} />
-          <Link to="/" className="font-extrabold text-lg">JioSaavn</Link>
+          <Link to="/" className="font-extrabold text-lg">
+            JioSaavn
+          </Link>
         </div>
         <div className="flex text-[24px] lg:text-[15px] gap-5 text-gray-600 font-semibold h-full">
           <li className="list-none">Music</li>
@@ -20,6 +36,7 @@ const Navbar = () => {
           type="text"
           name="search"
           id="search"
+          onChange={searchSongs}
           className=" py-2 rounded-full w-[40vw] outline-none text-center border text-black"
           placeholder="Search for songs, artists, playlists, podcasts "
         />
