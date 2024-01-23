@@ -24,7 +24,9 @@ const SongList = ({
   return (
     <div className="flex justify-between items-center w-[80vw] lg:w-[50vw] mb-2 lg:mb-1 p-1 px-3 hover:bg-white hover:shadow-md">
       <GoPlay
-        onClick={() => playMusic(downloadUrl, name, duration, image, id)}
+        onClick={() =>
+          playMusic(downloadUrl, name, duration, image, id, primaryArtists)
+        }
         className="text-3xl text-gray-500 hover:text-gray-700 transition-all ease-in-out duration-300 cursor-pointer"
       />
 

@@ -23,10 +23,16 @@ const Player = () => {
         inputRef.current.value = newTiming;
       };
 
+      const handleSongEnd = () => {
+        nextSong();
+      };
+
       audioElement.addEventListener("timeupdate", handleTimeUpdate);
+      audioElement.addEventListener("ended", handleSongEnd);
 
       return () => {
         audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+        audioElement.removeEventListener("ended", handleSongEnd);
       };
     }
   }, [currentSong]);
@@ -61,15 +67,21 @@ const Player = () => {
         className="w-full h-[5px] text-green-400 range transition-all duration-1000 ease-linear"
       /> */}
       <div className="flex justify-between items-center mb-3 px-3">
-        <div>
+        <div className="flex justify-start items-center gap-3 lg:w-[30vw] ">
           <img
             src={currentSong?.image}
             alt=""
             width={55}
             className="rounded-lg"
           />
+          <div className="hidden lg:block">
+            <span>{currentSong?.name}</span>
+            <p className="text-xs text-gray-500">
+              {currentSong?.primaryArtists}
+            </p>
+          </div>
         </div>
-        <div className="flex text-3xl gap-6">
+        <div className={`flex text-2xl lg:text-3xl gap-6 lg:w-[40vw] justify-center`}>
           <BiRepeat className="text-gray-400 " />
           <IoMdSkipBackward
             onClick={prevSong}
@@ -109,8 +121,8 @@ const Player = () => {
           />
           <PiShuffleBold className="text-gray-400  cursor-pointer" />
         </div>
-        <div>
-          <HiSpeakerWave className="text-gray-700 hover:text-gray-500 text-3xl cursor-pointer" />
+        <div className="flex  lg:w-[30vw] justify-end">
+          <HiSpeakerWave className="text-gray-700 hover:text-gray-500 text-2xl lg:text-3xl cursor-pointer" />
         </div>
       </div>
     </div>

@@ -9,7 +9,14 @@ const App = () => {
   const [currentSong, setCurrentSong] = useState(null);
   const [songs, setSongs] = useState([]);
 
-  const playMusic = async (music, name, duration, image, id) => {
+  const playMusic = async (
+    music,
+    name,
+    duration,
+    image,
+    id,
+    primaryArtists
+  ) => {
     if (currentSong && currentSong.id === id) {
       if (isPlaying) {
         setIsPlaying(false);
@@ -30,6 +37,7 @@ const App = () => {
         image: image[2].link,
         id,
         audio: newAudio,
+        primaryArtists,
       });
       setIsPlaying(true);
       console.log(currentSong);
@@ -47,11 +55,13 @@ const App = () => {
     if (currentSong) {
       const index = songs.findIndex((song) => song.id === currentSong.id);
       if (index === songs.length - 1) {
-        const { downloadUrl, name, duration, image, id } = songs[0];
-        playMusic(downloadUrl, name, duration, image, id);
+        const { downloadUrl, name, duration, image, id, primaryArtists } =
+          songs[0];
+        playMusic(downloadUrl, name, duration, image, id, primaryArtists);
       } else {
-        const { downloadUrl, name, duration, image, id } = songs[index + 1];
-        playMusic(downloadUrl, name, duration, image, id);
+        const { downloadUrl, name, duration, image, id, primaryArtists } =
+          songs[index + 1];
+        playMusic(downloadUrl, name, duration, image, id, primaryArtists);
       }
     }
   };
@@ -61,12 +71,13 @@ const App = () => {
     if (currentSong) {
       const index = songs.findIndex((song) => song.id === currentSong.id);
       if (index === 0) {
-        const { downloadUrl, name, duration, image, id } =
+        const { downloadUrl, name, duration, image, id, primaryArtists } =
           songs[songs.length - 1];
-        playMusic(downloadUrl, name, duration, image, id);
+        playMusic(downloadUrl, name, duration, image, id, primaryArtists);
       } else {
-        const { downloadUrl, name, duration, image, id } = songs[index - 1];
-        playMusic(downloadUrl, name, duration, image, id);
+        const { downloadUrl, name, duration, image, id, primaryArtists } =
+          songs[index - 1];
+        playMusic(downloadUrl, name, duration, image, id, primaryArtists);
       }
     }
   };
