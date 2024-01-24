@@ -4,6 +4,7 @@ import { IoMdSkipForward, IoMdSkipBackward } from "react-icons/io";
 import { BiRepeat } from "react-icons/bi";
 import { PiShuffleBold } from "react-icons/pi";
 import { HiSpeakerWave } from "react-icons/hi2";
+import { LuHardDriveDownload } from "react-icons/lu";
 import MusicContext from "../context/MusicContext";
 import VolumeController from "./VolumeController";
 
@@ -49,6 +50,28 @@ const Player = () => {
     }
   };
 
+  const handleDownloadSong = async (url) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      console.log("Response : ", response, "Blob : ", blob);
+
+      // Create a temporary link element
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${currentSong.name}.mp3`; // You can change the downloaded file name if needed
+
+      // Append the link to the document and trigger the click event
+      document.body.appendChild(link);
+      link.click();
+
+      // Remove the link from the document
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error fetching or downloading the file:", error);
+    }
+  };
+
   return (
     <div className="fixed bottom-0 right-0 left-0 bg-[#f5f5f5ff] flex flex-col ">
       <input
@@ -85,7 +108,7 @@ const Player = () => {
           </div>
         </div>
         <div
-          className={`flex text-2xl lg:text-3xl gap-6 lg:w-[40vw] justify-center`}
+          className={`flex text-2xl lg:text-3xl gap-4 lg:gap-6 lg:w-[40vw] justify-center`}
         >
           <BiRepeat className="text-gray-400 " />
           <IoMdSkipBackward
@@ -127,11 +150,15 @@ const Player = () => {
           <PiShuffleBold className="text-gray-400  cursor-pointer" />
         </div>
         <div
-          className="flex  lg:w-[30vw] justify-end "
+          className="flex  lg:w-[30vw] justify-end items-center "
           onMouseEnter={() => setIsVolumeVisible(true)}
           onMouseLeave={() => setIsVolumeVisible(false)}
         >
-          <HiSpeakerWave className="text-gray-700 hover:text-gray-500 text-2xl lg:text-3xl cursor-pointer" />
+          <LuHardDriveDownload
+            onClick={() => handleDownloadSong(currentSong.audio.src)}
+            className="text-gray-700 hover:text-gray-500 text-2xl lg:text-3xl cursor-pointer lg:mr-2 "
+          />
+          <HiSpeakerWave className="text-gray-700 hover:text-gray-500 text-2xl lg:text-3xl cursor-pointer hidden lg:block" />
           <VolumeController isVolumeVisible={isVolumeVisible} />
         </div>
       </div>
