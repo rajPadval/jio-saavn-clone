@@ -12,7 +12,7 @@ const SongItem = ({
   const { playMusic } = useContext(MusicContext);
 
   return (
-    <div className="w-[160px] max-h-[220px] overflow-y-clip flex flex-col justify-center items-center gap-3  scroll-hide rounded-lg">
+    <div className="w-[160px] max-h-[220px] overflow-y-clip flex flex-col justify-center items-center gap-3  scroll-hide rounded-lg ">
       <img
         src={image[2].link}
         alt=""
