@@ -1,14 +1,21 @@
-import { useSelector } from "react-redux";
-import AlbumItem from "./AlbumItem";
 import Slider from "./Slider";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 
 const MainSection = () => {
-  const albums = useSelector((state) => state.homePageSlice.albums);
-  const playlists = useSelector((state) => state.homePageSlice.playlists);
-  const charts = useSelector((state) => state.homePageSlice.charts);
-  const trending = useSelector((state) => state.homePageSlice.trending);
+  const [albums, setAlbums] = useState([]);
+  const [trending, setTrending] = useState([]);
 
+  const getHomePageData = async () => {
+    const res = await axios.get("https://saavn.me/modules?language=hindi");
+    const { data } = await res.data;
+    setAlbums(data.albums);
+    setTrending(data.trending);
+  };
+
+  useEffect(() => {
+    getHomePageData();
+  }, []);
 
   const trendingAlbums = useMemo(
     () => (Array.isArray(trending.albums) ? trending.albums : []),
