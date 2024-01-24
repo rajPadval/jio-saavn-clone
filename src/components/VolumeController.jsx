@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import MusicContext from "../context/MusicContext";
 
 const VolumeController = ({ isVolumeVisible }) => {
   const { currentSong } = useContext(MusicContext);
   const [volume, setVolume] = useState(100);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (currentSong) {
       console.log(currentSong.audio.volume);
       setVolume(currentSong.audio.volume * 100);
