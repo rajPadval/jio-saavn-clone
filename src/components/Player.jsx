@@ -84,14 +84,7 @@ const Player = () => {
         onChange={handleProgressChange}
         className="w-full h-[5px] text-green-400 range "
       />
-      {/* <input
-        type="range"
-        ref={inputRef}
-        value={0}
-        max={100}
-        onChange={handleProgressChange}
-        className="w-full h-[5px] text-green-400 range transition-all duration-1000 ease-linear"
-      /> */}
+     
       <div className="flex justify-between items-center mb-3 px-3">
         <div className="flex justify-start items-center gap-3 lg:w-[30vw] ">
           <img

@@ -8,7 +8,6 @@ import {
     setTrending,
 } from "../../redux/slices/homePageSlice";
 import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
 import MainSection from "../components/MainSection";
 import Player from "../components/Player";
 import SearchSection from "../components/SearchSection";

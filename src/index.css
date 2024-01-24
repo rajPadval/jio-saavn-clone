@@ -33,13 +33,6 @@ body {
   background: transparent;
 }
 
-/* .range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 100%;
-  background: #46c7b6ff;
-} */
 
 input[type="range"] {
   -webkit-appearance: none;
@@ -55,4 +48,6 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 30px;
   background: #46c7b6ff;
 }
+
+
 
