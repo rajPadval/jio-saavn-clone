@@ -31,7 +31,7 @@ const App = () => {
         currentSong.audio.pause();
         setIsPlaying(false);
       }
-      const newAudio = new Audio(music[0].link);
+      const newAudio = new Audio(music[4].link);
       setCurrentSong({
         name,
         duration,
